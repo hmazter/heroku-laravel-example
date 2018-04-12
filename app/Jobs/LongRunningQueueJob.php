@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Post;
+use Faker\Factory;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -20,11 +21,13 @@ class LongRunningQueueJob implements ShouldQueue
      */
     public function handle()
     {
-        sleep(5);
+        sleep(3);
 
+        $faker = Factory::create();
+        $postCount = Post::all()->count() + 1;
         Post::create([
-            'title' => 'Queued job ' . (Post::all()->count() - 9),
-            'body' => 'Some text'
+            'title' => "Post #$postCount, created through the queue",
+            'body' => $faker->paragraphs(3, true),
         ]);
     }
 }

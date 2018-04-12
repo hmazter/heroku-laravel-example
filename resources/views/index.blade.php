@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel</title>
+    <title>Hmazter's fake blog for Heroku testing</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 <body>
 <div id="app" class="container">
-    <h1>Hmazter's fake blog for Heroku test</h1>
+    <h1>Hmazter's fake blog for Heroku testing</h1>
 
     <div class="d-flex flex-row-reverse">
         <a href="/queue" class="btn btn-light" role="button">Create new post</a>
