@@ -1,5 +1,7 @@
 <?php
 
+$dbopts = parse_url(env('DATABASE_URL'));
+
 return [
 
     /*
@@ -61,6 +63,19 @@ return [
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+        'heroku' => [
+            'driver' => 'pgsql',
+            'host' => $dbopts['host'] ?? '',
+            'port' => $dbopts['port'] ?? '',
+            'database' => ltrim($dbopts["path"] ?? '','/'),
+            'username' => $dbopts['user'] ?? '',
+            'password' => $dbopts['pass'] ?? '',
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
