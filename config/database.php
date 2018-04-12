@@ -1,6 +1,13 @@
 <?php
 
 $dbopts = parse_url(env('DATABASE_URL'));
+if (env('REDIS_URL')) {
+    $redis = parse_url(env('REDIS_URL'));
+
+    putenv('REDIS_HOST=' . $redis['host']);
+    putenv('REDIS_PORT=' . $redis['port']);
+    putenv('REDIS_PASSWORD=' . $redis['pass']);
+}
 
 return [
 
