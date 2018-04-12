@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'PostController@index');
+
+Route::get('/queue', 'QueueController@index');
