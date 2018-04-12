@@ -9,10 +9,15 @@ resource "heroku_app" "app" {
   region = "eu"
 
   config_vars = {
-    APP_KEY = "${var.app_key}"
+    APP_KEY       = "${var.app_key}"
     DB_CONNECTION = "heroku"
-    LOG_CHANNEL = "errorlog"
+    LOG_CHANNEL   = "errorlog"
   }
+
+  buildpacks = [
+    "heroku/php",
+    "heroku/nodejs",
+  ]
 }
 
 # Database
