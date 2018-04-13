@@ -3,35 +3,22 @@ provider "heroku" {
   api_key = "${var.heroku_api_key}"
 }
 
-# App
-resource "heroku_app" "app" {
-  name   = "${var.heroku_app_name}"
-  region = "eu"
-
-  config_vars = {
-    APP_KEY       = "${var.app_key}"
-    DB_CONNECTION = "heroku"
-    LOG_CHANNEL   = "errorlog"
-  }
-
-  buildpacks = [
-    "heroku/php",
-    "heroku/nodejs",
-  ]
+resource "heroku_pipeline" "test-app" {
+  name = "test-app"
 }
 
-# Database
-resource "heroku_addon" "database" {
-  app  = "${heroku_app.app.name}"
-  plan = "heroku-postgresql:hobby-dev"
+resource "heroku_pipeline_coupling" "staging" {
+  app      = "${heroku_app.staging.name}"
+  pipeline = "${heroku_pipeline.test-app.id}"
+  stage    = "staging"
 }
 
-# Redis
-resource "heroku_addon" "redis" {
-  app  = "${heroku_app.app.name}"
-  plan = "heroku-redis:hobby-dev"
+resource "heroku_pipeline_coupling" "production" {
+  app      = "${heroku_app.production.name}"
+  pipeline = "${heroku_pipeline.test-app.id}"
+  stage    = "production"
 }
 
 output "heroku-git-url" {
-  value = "${heroku_app.app.git_url}"
+  value = "${heroku_app.staging.git_url}"
 }
