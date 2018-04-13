@@ -5,17 +5,17 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
-class HerokuPostDeploy extends Command
+class HerokuRelease extends Command
 {
     /**
      * @var string
      */
-    protected $signature = 'heroku:post-deploy';
+    protected $signature = 'heroku:release';
 
     /**
      * @var string
      */
-    protected $description = 'Command to handle post deploy actions in Heroku';
+    protected $description = 'Command to handle release actions in Heroku';
 
     public function __construct()
     {
